@@ -7,6 +7,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.plexus.archiver.FinalizerEnabled;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,8 +66,9 @@ public class TicketDAO {
             logger.error("Error fetching next available slot",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
-            return ticket;
         }
+        return ticket;
+
     }
 
     public boolean updateTicket(Ticket ticket) {
@@ -85,5 +87,9 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+    public int getNbTicket(String number) {
+        return 0;
     }
 }
