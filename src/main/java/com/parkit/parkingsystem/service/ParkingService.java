@@ -70,6 +70,7 @@ public class ParkingService {
         try{
             ParkingType parkingType = getVehichleType();
             parkingNumber = parkingSpotDAO.getNextAvailableSlot(parkingType);
+            System.out.println("marche?");
             if(parkingNumber > 0){
                 parkingSpot = new ParkingSpot(parkingNumber,parkingType, true);
             }else{
@@ -109,10 +110,8 @@ public class ParkingService {
             Date outTime = new Date();
             ticket.setOutTime(outTime);
             //TODO commentaire
-            if(ticket.getDiscount()){
-                fareCalculatorService.calculateFare(ticket, true);
-            }
-            else fareCalculatorService.calculateFare(ticket, false);
+            
+            fareCalculatorService.calculateFare(ticket, ticket.getDiscount());
 
             if(ticketDAO.updateTicket(ticket)) {
                 ParkingSpot parkingSpot = ticket.getParkingSpot();
